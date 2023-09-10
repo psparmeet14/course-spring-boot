@@ -2,6 +2,7 @@ package com.parmeet.location.controllers;
 
 import com.parmeet.location.entities.Location;
 import com.parmeet.location.service.LocationService;
+import com.parmeet.location.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,9 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
+    @Autowired
+    private EmailUtil emailUtil;
+
     @RequestMapping("/showCreate")
     public String showCreate() {
         return "createLocation";
@@ -27,6 +31,8 @@ public class LocationController {
         Location locationSaved = locationService.saveLocation(location);
         String msg = "Location saved with id: " + locationSaved.getId();
         modelMap.addAttribute("msg", msg);
+        emailUtil.sendEmail("workflow123test@gmail.com", "Location Saved", "Location Saved Successfully" +
+                "and about to return a response");
         return "createLocation";
     }
 
