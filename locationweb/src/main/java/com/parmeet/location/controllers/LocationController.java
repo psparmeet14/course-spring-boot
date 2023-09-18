@@ -1,8 +1,11 @@
 package com.parmeet.location.controllers;
 
 import com.parmeet.location.entities.Location;
+import com.parmeet.location.repos.LocationRepository;
 import com.parmeet.location.service.LocationService;
 import com.parmeet.location.util.EmailUtil;
+import com.parmeet.location.util.ReportUtil;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +22,16 @@ public class LocationController {
     private LocationService locationService;
 
     @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
     private EmailUtil emailUtil;
+
+    @Autowired
+    private ReportUtil reportUtil;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @RequestMapping("/showCreate")
     public String showCreate() {
@@ -31,8 +43,8 @@ public class LocationController {
         Location locationSaved = locationService.saveLocation(location);
         String msg = "Location saved with id: " + locationSaved.getId();
         modelMap.addAttribute("msg", msg);
-        emailUtil.sendEmail("workflow123test@gmail.com", "Location Saved", "Location Saved Successfully" +
-                "and about to return a response");
+        /*emailUtil.sendEmail("workflow123test@gmail.com", "Location Saved", "Location Saved Successfully" +
+                "and about to return a response");*/
         return "createLocation";
     }
 
@@ -65,5 +77,13 @@ public class LocationController {
         List<Location> locations = locationService.getAllLocations();
         modelMap.addAttribute("locations", locations);
         return "displayLocations";
+    }
+
+    @RequestMapping("/generateReport")
+    public String generateReport() {
+        String path = servletContext.getRealPath("/");
+        List<Object[]> data = locationRepository.findByTypeAndTypeCount();
+        reportUtil.generatePieChart(path, data);
+        return "report";
     }
 }
