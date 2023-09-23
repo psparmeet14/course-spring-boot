@@ -1,24 +1,18 @@
 package com.parmeet.flightreservation.entities;
 
+import jakarta.persistence.Entity;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class Flight {
-    private Long id;
+@Entity
+public class Flight extends AbstractEntity {
     private String flightNumber;
     private String operatingAirlines;
     private String departureCity;
     private String arrivalCity;
     private Date dateOfDeparture;
     private Timestamp estimatedDepartureTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFlightNumber() {
         return flightNumber;

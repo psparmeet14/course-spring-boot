@@ -1,19 +1,16 @@
 package com.parmeet.flightreservation.entities;
 
-public class Reservation {
-    private Long id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Reservation extends AbstractEntity {
     private Boolean checkedIn;
     private Integer numberOfBags;
+    @OneToOne
     private Passenger passenger;
+    @OneToOne
     private Flight flight;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Boolean getCheckedIn() {
         return checkedIn;
