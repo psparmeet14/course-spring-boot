@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Find Flights</title>
 </head>
 <body>
-<h2>Find Flights:</h2>
-<form action="" method="">
-
-</form>
+    <h2>Find Flights:</h2>
+    <form action="findFlights" method="post">
+        <pre>
+            From: <input type="text" name="from"/>
+            To: <input type="text" name="to"/>
+            Departure Date: <input type="text" name="departureDate"/>
+            <input type="submit" value="search"/>
+        </pre>
+    </form>
 </body>
 </html>
