@@ -2,6 +2,8 @@ package com.parmeet.flightreservation.entities;
 
 import jakarta.persistence.Entity;
 
+import java.util.StringJoiner;
+
 @Entity
 public class Passenger extends AbstractEntity {
     private String firstName;
@@ -48,5 +50,16 @@ public class Passenger extends AbstractEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Passenger.class.getSimpleName() + "[", "]")
+                .add("firstName='" + firstName + "'")
+                .add("lastName='" + lastName + "'")
+                .add("middleName='" + middleName + "'")
+                .add("email='" + email + "'")
+                .add("phone='" + phone + "'")
+                .toString();
     }
 }
