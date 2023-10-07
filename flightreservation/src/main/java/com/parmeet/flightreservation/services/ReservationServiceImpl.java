@@ -12,11 +12,14 @@ import com.parmeet.flightreservation.util.PDFGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
+    @Value("${com.parmeet.flightreservation.itinerary.dirpath}")
+    private String ITINERARY_DIR;
     @Autowired
     private PassengerRepository passengerRepository;
     @Autowired
@@ -53,8 +56,7 @@ public class ReservationServiceImpl implements ReservationService {
         LOGGER.info("Saving the reservation: " + reservation);
         Reservation savedReservation = reservationRepository.save(reservation);
 
-        String filePath = "/Users/parmeetsingh/X Developer/project-data/reservation-project-spring-boot/reservation"
-                +savedReservation.getId()+".pdf";
+        String filePath = ITINERARY_DIR  + savedReservation.getId() + ".pdf";
         LOGGER.info("Generating the itinerary");
         pdfGenerator.generateItinerary(savedReservation, filePath);
 
