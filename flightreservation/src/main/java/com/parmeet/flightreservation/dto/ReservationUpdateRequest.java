@@ -1,5 +1,7 @@
 package com.parmeet.flightreservation.dto;
 
+import java.util.StringJoiner;
+
 public class ReservationUpdateRequest {
     private Long id;
     private Boolean checkedIn;
@@ -27,5 +29,14 @@ public class ReservationUpdateRequest {
 
     public void setNumberOfBags(Integer numberOfBags) {
         this.numberOfBags = numberOfBags;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", ReservationUpdateRequest.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("checkedIn=" + checkedIn)
+                .add("numberOfBags=" + numberOfBags)
+                .toString();
     }
 }
