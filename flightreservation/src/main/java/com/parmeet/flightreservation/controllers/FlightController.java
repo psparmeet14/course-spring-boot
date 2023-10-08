@@ -23,10 +23,11 @@ public class FlightController {
     private FlightRepository flightRepository;
 
     @RequestMapping(value = "/findFlights", method = RequestMethod.POST)
-    public String findFlights(@RequestParam("from") String from,
-                              @RequestParam("to") String to,
-                              @RequestParam("departureDate") @DateTimeFormat(pattern = "MM-dd-yyyy") Date departureDate,
-                              ModelMap modelMap
+    public String findFlights(
+            @RequestParam("from") String from,
+            @RequestParam("to") String to,
+            @RequestParam("departureDate") @DateTimeFormat(pattern = "MM-dd-yyyy") Date departureDate,
+            ModelMap modelMap
     ) {
         LOGGER.info("Inside findFlights() from: " + from + " to: " + to + " departure date: " + departureDate);
         List<Flight> flights = flightRepository.findFlights(from, to, departureDate);
@@ -34,4 +35,11 @@ public class FlightController {
         LOGGER.info("Flights found are : " + flights);
         return "displayFlights";
     }
+
+    @RequestMapping("/admin/showAddFlight")
+    public String showAddFlight() {
+        return "addFlight";
+    }
+
+
 }
