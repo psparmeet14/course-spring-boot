@@ -40,6 +40,4 @@ public class FlightController {
     public String showAddFlight() {
         return "addFlight";
     }
-
-
 }
