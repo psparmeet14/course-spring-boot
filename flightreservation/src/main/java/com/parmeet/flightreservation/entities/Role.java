@@ -2,11 +2,12 @@ package com.parmeet.flightreservation.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
 @Entity
-public class Role extends AbstractEntity {
+public class Role extends AbstractEntity implements GrantedAuthority {
     private String name;
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
@@ -25,5 +26,10 @@ public class Role extends AbstractEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }
