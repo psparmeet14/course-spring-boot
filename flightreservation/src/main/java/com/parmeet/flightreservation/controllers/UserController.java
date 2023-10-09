@@ -3,6 +3,8 @@ package com.parmeet.flightreservation.controllers;
 import com.parmeet.flightreservation.entities.User;
 import com.parmeet.flightreservation.repos.UserRepository;
 import com.parmeet.flightreservation.services.SecurityService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +51,13 @@ public class UserController {
     public String login(
             @RequestParam("email") String email,
             @RequestParam("password") String password,
-            ModelMap modelMap
+            ModelMap modelMap,
+            HttpServletRequest request,
+            HttpServletResponse response
     ) {
         LOGGER.info("Inside login() and the email is: " + email);
 
-        boolean loginResponse = securityService.login(email, password);
+        boolean loginResponse = securityService.login(email, password, request, response);
         if (loginResponse) {
             return "findFlights";
         } else {
